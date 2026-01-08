@@ -15,6 +15,39 @@ const int MAX_BOOKS = 100;
 Book library[MAX_BOOKS];
 int bookCount = 0;
 
+bool login() {
+    string username, password;
+    int attempt = 0;
+
+    cout << "==============================" << endl;
+    cout << "BUKIT KATIL COMMUNITY LIBRARY" << endl;
+    cout << "==============================" << endl;
+    cout << "\n========== LOGIN ==========\n";
+
+    while (attempt < 3) {
+        cout << "Username :";
+        cin >> username;
+        cout << "Password :";
+        cin >> password;
+
+        if (username == "admin" && password == "1234") {
+            cout << endl << "Login Succesfully" << endl;
+            return true;
+        }
+
+        else {
+            attempt++;
+            cout << "Invalid username or password. Please try again." << endl;
+            if (attempt < 3) {
+                cout << "Attempt remaining : " << (3 - attempt) << endl;
+            }
+        }
+
+    }
+    cout << "\nToo many failed attempts! Program closing...\n";
+    return false;
+}
+
 double calculateFee(int days) {
     if (days <= 0)
         return 0.0;
@@ -133,6 +166,11 @@ void displayCatalogue() {
 
 int main() {
     int choice = 0;
+
+    if (!login()) {
+        return 0;
+    }
+
     while (choice != 6) {
         cout << "\n--- BKCL SYSTEM ---" << endl;
         cout << "1. Add Book\n2. View Catalogue\n3. Loan Book\n4. Return Book\n5. Search Book\n6. Exit" << endl;
